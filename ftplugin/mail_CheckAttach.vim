@@ -1,14 +1,14 @@
 " Vim filetype plugin for checking attachments with mutt
 " Maintainer:  Christian Brabandt <cb@256bit.org>
-" Last Change: Fri, 17 Dec 2010 09:03:47 +0100
-" Version:     0.9
-" GetLatestVimScripts: 2796 8 :AutoInstall: CheckAttach.vim
+" Last Change: Mon, 17 Jan 2011 20:36:30 +0100
+" Version:     0.10
+" GetLatestVimScripts: 2796 9 :AutoInstall: CheckAttach.vim
 
 " Initialization "{{{1
 " Exit quickly when:
 " - this plugin was already loaded (or disabled)
 " - when 'compatible' is set
-" - the autocmd event is not availble.
+" - the autocmd event is not available.
 if exists("g:loaded_checkattach") || &cp ||
 	\ !exists("##BufWriteCmd") || !exists("##FileWriteCmd")
   finish
@@ -80,7 +80,7 @@ fu! <SID>CheckAttach()"{{{2
 	endif
 	call add(s:matchid,matchadd('WarningMsg', '\c\%('.val.'\)'))
 	redr!
-        let ans=input("Attach file: (leave empty to abbort): ", "", "file")
+        let ans=input("Attach file: (leave empty to abort): ", "", "file")
         while (ans != '') && (ans != 'n')
                 let list = split(expand(glob(ans)), "\n")
                 for attach in list
@@ -88,7 +88,7 @@ fu! <SID>CheckAttach()"{{{2
                     call append(line('.'), 'Attach: ' . escape(attach, ' '))
                     redraw
                 endfor
-            let ans=input("Attach another file?: (leave empty to abbort): ", "", "file")
+            let ans=input("Attach another file?: (leave empty to abort): ", "", "file")
         endwhile
     endif
     call <SID>WriteBuf(v:cmdbang)
@@ -113,7 +113,7 @@ fu! <SID>AttachFile(pattern) "{{{2
     let newlastline=line('$')
     " Adding text above, means, we need to adjust
     " the cursor position from the oldpos dictionary. 
-    " Shoud oldpos.topline also be adjusted ?
+    " Should oldpos.topline also be adjusted ?
     let oldpos.lnum+=newlastline-lastline
     if oldpos.topline > header_end
 	let oldpos.topline+=newlastline-lastline
