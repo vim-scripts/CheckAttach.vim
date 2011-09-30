@@ -1,7 +1,7 @@
 *CheckAttach.txt*  Check attachments when using mutt - Vers 0.8  Mar 02, 2010
 
 Author:  Christian Brabandt <cb@256bit.org>
-Version: 0.10 Mon, 17 Jan 2011 20:36:30 +0100
+Version: 0.11 Fri, 30 Sep 2011 21:40:15 +0200
 Copyright: (c) 2009 by Christian Brabandt               *CheckAttach-copyright*
            The VIM LICENSE applies to CheckAttach.vim and CheckAttach.txt
            (see |copyright|) except use CheckAttach instead of "Vim".
@@ -59,14 +59,30 @@ let g:attach_check_keywords =',foobar'
 NOTE: The comma is important. It is used to separate the different keywords
 and needs to be included.
 
+                                                        *CheckAttach_Problems*
+Problems with CheckAttach
+========================
+
+If you try to attach a file, whose name contains 8bit letters, it could be,
+that mutt can't attach that file and instead displays an error message similar
+to this one:
+
+    "<filename>: unable to attach file"
+
+where <filename> is mangled, this is a problem with the way mutt works in
+conjunction with the assumed_charset patch. In this case, you should either
+not use filenames containing 8bit letters or only 8bit letters in the same
+encoding as given to the assumed_charset option.
+
+                                      *EnableCheckAttach* *DisableCheckAttach*
+You can disable the plugin by issuing the command 
+:DisableCheckAttach
+Enabling the attachment check is then again enabled by issuing
+:EnableCheckAttach
+
 If you'd like to suggest adding additional keywords (for your language),
 please contact the author (see first line of this help page).
 
-                                      *:EnableCheckAttach* *:DisableCheckAttach*
-You can disable the plugin by issuing the command >
-    :DisableCheckAttach
-Enabling the attachment check is then again enabled by issuing >
-    :EnableCheckAttach
 You can also use the ! attribute when saving your buffer to temporarily skip
 the check. So if you use :w! the buffer will not be checked for attachments,
 only if you use :w it will.
@@ -81,6 +97,10 @@ complete the directory.
 
 ==============================================================================
 2. CheckAttach History                                   *CheckAttach-history*
+   0.11: Sep  30, 2011     Make a filetype plugin out of it, it does not
+                             make sense to have it as plugin, since its only
+                             use is with mutt (aka ft: mail)
+                           Documentation update
    0.10: Jan  17, 2011     Spelling fixes by Scott Stevenson (Thanks!)
     0.9: Dec  17, 2010     new command |:AttachFile|
     0.8: Nov  29, 2010     Make ftplugin instead of plugin,
