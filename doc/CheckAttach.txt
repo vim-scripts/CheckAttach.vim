@@ -1,7 +1,7 @@
 *CheckAttach.txt*  Check attachments when using mutt - Vers 0.8  Mar 02, 2010
 
 Author:  Christian Brabandt <cb@256bit.org>
-Version: 0.11 Fri, 30 Sep 2011 21:40:15 +0200
+Version: 0.12 Tue, 25 Oct 2011 21:58:59 +0200
 Copyright: (c) 2009 by Christian Brabandt               *CheckAttach-copyright*
            The VIM LICENSE applies to CheckAttach.vim and CheckAttach.txt
            (see |copyright|) except use CheckAttach instead of "Vim".
@@ -97,6 +97,8 @@ complete the directory.
 
 ==============================================================================
 2. CheckAttach History                                   *CheckAttach-history*
+   0.12: Oct  25, 2011     Update the plugin (include some changes, that got
+                             lost with 0.11)
    0.11: Sep  30, 2011     Make a filetype plugin out of it, it does not
                              make sense to have it as plugin, since its only
                              use is with mutt (aka ft: mail)
