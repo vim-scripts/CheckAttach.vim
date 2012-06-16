@@ -1,8 +1,8 @@
 " Vim plugin for checking attachments with mutt
 " Maintainer:  Christian Brabandt <cb@256bit.org>
-" Last Change: Tue, 08 Nov 2011 21:58:13 +0100
-" Version:     0.13
-" GetLatestVimScripts: 2796 13 :AutoInstall: CheckAttach.vim
+" Last Change: Sat, 16 Jun 2012 11:42:26 +0200
+" Version:     0.14
+" GetLatestVimScripts: 2796 14 :AutoInstall: CheckAttach.vim
 
 " Plugin folklore "{{{1
 " Exit quickly when:
@@ -214,12 +214,16 @@ fu! <SID>AttachFile(pattern) "{{{2
 	call <sid>ExternalFileBrowser(isdirectory(a:pattern) ? a:pattern :
 	    \ fnamemodify(a:pattern, ':h'))
     else "empty(a:pattern)
-	for item in split(a:pattern, ' ')
-	    let list = split(expand(item), "\n")
-	    for file in list
-		call append('.', 'Attach: ' . escape(file, " \t\\"))
-		redraw!
-	    endfor
+	" glob supports returning a list
+	if v:version > 703 || v:version == 703 && has("patch465")
+	    let list = "glob(a:pattern, 1, 1)"
+	else
+	    " glob returns new-line separated items
+	    let list = 'split(glob(a:pattern, 1), "\n")'
+	endif
+	for item in eval(list)
+	    call append('.', 'Attach: '. escape(item, " \t\\"))
+	    redraw!
 	endfor
     endif
     call <SID>CheckNewLastLine()
